@@ -4,12 +4,13 @@ import SearchTransaction from './SearchTransaction';
 import AddTransaction from './AddTransaction';
 import Modal from '../../../ui/Modal';
 import Pagination from '../../../ui/Pagination';
-import Transaction from './Transaction';
 import FilterTransaction from './FilterTransaction';
 import Button from '../../../ui/Button';
+import Table from '../../../ui/Table.js';
+import EditTransaction from './EditTransaction.js';
 
 export default function Transactions() {
-    const { transactions, exportTransactions } = useTransactionStore();
+    const { transactions, exportTransactions, deleteTransaction } = useTransactionStore();
 
     // State for filters is lifted to this parent component
     const [searchKey, setSearchKey] = useState('');
@@ -55,6 +56,26 @@ export default function Transactions() {
     var lastItemIndex = currentPage * itemsPerPage;
     var firstItemIndex = lastItemIndex - itemsPerPage;
 
+    const columns = [
+        { header: '#', accessor: 'id' },
+        { header: 'Product', accessor: 'product' },
+        { header: 'Quantity', accessor: 'quantity' },
+        { header: 'Type', accessor: 'type' },
+        { header: 'Date', accessor: 'date' },
+        {
+            header: 'Action', accessor: 'action', Cell: (row) => (
+                <div className='d-flex'>
+                    <Button variant="warning" onClick={() => openModal('Edit Transaction', <EditTransaction transaction={row} closeModal={closeModal} />)}>
+                        <i className="fa fa-edit"></i>
+                    </Button>
+                    <Button variant="danger" onClick={() => deleteTransaction(row.id)}>
+                        <i className="fa fa-trash"></i>
+                    </Button>
+                </div>
+            )
+        }
+    ];
+
     return (
         <div className='container mt-3'>
             <div className=' d-flex flex-wrap  justify-content-between  align-items-center mt-4 mb-5  '>
@@ -69,25 +90,10 @@ export default function Transactions() {
                 />
             </div>
 
-            <table className="table custom-table ">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Product</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        filteredTransactions.slice(firstItemIndex, lastItemIndex).map(
-                            (transaction) => <Transaction key={transaction.id} transaction={transaction} openModal={openModal} />
-                        )
-                    }
-                </tbody>
-            </table>
+            <Table 
+                data={filteredTransactions.slice(firstItemIndex, lastItemIndex)}
+                columns={columns}
+            />
 
             <Pagination totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
 

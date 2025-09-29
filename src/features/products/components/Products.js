@@ -4,12 +4,14 @@ import Modal from '../../../ui/Modal.js';
 import SearchProduct from './SearchProduct.js';
 import AddProduct from './AddProduct.js';
 import Pagination from '../../../ui/Pagination.js';
-import Product from './Product.js';
 import FilterProduct from './FilterProduct.js';
 import Button from '../../../ui/Button';
+import Table from '../../../ui/Table.js';
+import EditProduct from './EditProduct.js';
+import ProductDetails from './ProductDetails.js';
 
 function Products() {
-    const { products } = useProductStore();
+    const { products, deleteProduct } = useProductStore();
 
     // State for filters is lifted to this parent component
     const [searchKey, setSearchKey] = useState('');
@@ -61,14 +63,42 @@ function Products() {
         setSelectedProduct(null);
     };
 
+    const columns = [
+        { header: '#', accessor: 'id' },
+        {
+            header: 'Image', accessor: 'thumbnail', Cell: (row) => (
+                <img src={row.thumbnail} alt={row.title} width="50" />
+            )
+        },
+        { header: 'Name', accessor: 'title' },
+        { header: 'Stock', accessor: 'stock' },
+        { header: 'Price', accessor: 'price' },
+        { header: 'Category', accessor: 'category' },
+        {
+            header: 'Action', accessor: 'action', Cell: (row) => (
+                <div className='d-flex'>
+                    <Button variant="primary" onClick={() => openModal('Product Details', <ProductDetails product={row} />)}>
+                        <i className="fa fa-eye"></i>
+                    </Button>
+                    <Button variant="warning" onClick={() => openModal('Edit Product', <EditProduct product={row} closeModal={closeModal} />)}>
+                        <i className="fa fa-edit"></i>
+                    </Button>
+                    <Button variant="danger" onClick={() => deleteProduct(row.id)}>
+                        <i className="fa fa-trash"></i>
+                    </Button>
+                </div>
+            )
+        }
+    ];
+
     return (
         <div className='container mt-3'>
             <div className=' d-flex flex-wrap justify-content-between  align-items-center mt-4 mb-5  '>
                 <SearchProduct searchKey={searchKey} setSearchKey={setSearchKey} />
-                <Button variant="success" onClick={() => openModal('Add Product', <AddProduct />)}> 
+                <Button variant="success" onClick={() => openModal('Add Product', <AddProduct />)}>
                     Add Product <i className="fa fa-plus-square  m-1   "></i>
                 </Button>
-                <FilterProduct 
+                <FilterProduct
                     products={products}
                     minStock={minStock} setMinStock={setMinStock}
                     maxStock={maxStock} setMaxStock={setMaxStock}
@@ -78,26 +108,10 @@ function Products() {
                 />
             </div>
 
-            <table className="table custom-table   ">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Image</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Stock</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        filteredProducts.slice(firstItemIndex, lastItemIndex)
-                            .map((product) => <Product key={product.id} product={product}
-                                openModal={openModal} closeModal={closeModal} />)
-                    }
-                </tbody>
-            </table>
+            <Table
+                data={filteredProducts.slice(firstItemIndex, lastItemIndex)}
+                columns={columns}
+            />
 
             <Pagination totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
 
