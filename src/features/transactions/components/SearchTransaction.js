@@ -3,7 +3,7 @@ import Input from '../../../ui/Input';
 
 function SearchTransaction({ searchKey, setSearchKey }) {
     return (
-        <div className='col-sm-6'>
+        <div className='w-full sm:w-1/2'>
             <Input 
                 type="search" 
                 placeholder="Search by product..." 

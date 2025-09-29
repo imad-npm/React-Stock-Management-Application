@@ -43,7 +43,7 @@ const data={
 
 
   return (
-    <div style={{width:500}}>
+    <div className="w-full max-w-md mx-auto">
       <Bar data={data}/>
     </div>
   )

@@ -64,8 +64,8 @@ function EditTransaction({ transaction }) {
           />
         </FormGroup>
 
-        <div className="col-md-4 mb-3">
-          <label htmlFor="date" className="form-label">Date</label>
+        <div className="w-full md:w-1/3 mb-4">
+          <label htmlFor="date" className="block text-sm font-medium text-gray-700">Date</label>
           <Input
             type="text"
             id="date"

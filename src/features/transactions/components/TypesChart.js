@@ -24,7 +24,7 @@ function TypesChart() {
 
   return (
     
-      <div style={{width:200}} className='mb-5'>
+      <div className="w-48 mb-10">
       <Doughnut data={data}/>
     </div>
     

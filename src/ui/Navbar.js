@@ -1,29 +1,56 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 
-
 function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <div>
-<nav className="navbar navbar-expand-lg  bg-dark navbar-dark ">
-  <div className="container-fluid ">
-    <a className="navbar-brand " href="#">Inventory</a>
-    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span className="navbar-toggler-icon"></span>
-    </button>
-    <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div className="navbar-nav ">
-   
-        <NavLink  className="nav-link "   to='/products'>Products</NavLink>
-        <NavLink   className="nav-link"    to='/transactions'>Transactions</NavLink>
-        <NavLink   className="nav-link"       to='/stats'>Stats</NavLink>
+    <nav className="bg-gray-900 p-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+        <Link className="text-white text-xl font-bold tracking-wide" to="/">Inventory</Link>
 
+        <div className="block md:hidden">
+          <button onClick={toggleMenu} className="text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-white">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
 
+        <div className={`w-full block flex-grow md:flex md:items-center md:w-auto ${isOpen ? 'block' : 'hidden'}`}>
+          <div className="text-sm md:flex-grow md:flex md:justify-end md:space-x-6 mt-4 md:mt-0">
+            <NavLink
+              className={({ isActive }) =>
+                `block mt-4 md:inline-block md:mt-0 text-gray-300 hover:text-white transition duration-300 ${isActive ? 'text-white font-bold' : ''}`
+              }
+              to='/products'
+            >
+              Products
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                `block mt-4 md:inline-block md:mt-0 text-gray-300 hover:text-white transition duration-300 ${isActive ? 'text-white font-bold' : ''}`
+              }
+              to='/transactions'
+            >
+              Transactions
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                `block mt-4 md:inline-block md:mt-0 text-gray-300 hover:text-white transition duration-300 ${isActive ? 'text-white font-bold' : ''}`
+              }
+              to='/stats'
+            >
+              Stats
+            </NavLink>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</nav>
-    </div>
+    </nav>
   )
 }
 

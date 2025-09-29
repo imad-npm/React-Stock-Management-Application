@@ -64,7 +64,7 @@ export default function Transactions() {
         { header: 'Date', accessor: 'date' },
         {
             header: 'Action', accessor: 'action', Cell: (row) => (
-                <div className='d-flex'>
+                <div className='flex space-x-2'>
                     <Button variant="warning" onClick={() => openModal('Edit Transaction', <EditTransaction transaction={row} closeModal={closeModal} />)}>
                         <i className="fa fa-edit"></i>
                     </Button>
@@ -77,8 +77,8 @@ export default function Transactions() {
     ];
 
     return (
-        <div className='container mt-3'>
-            <div className=' d-flex flex-wrap  justify-content-between  align-items-center mt-4 mb-5  '>
+        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-3'>
+            <div className='flex flex-wrap items-center justify-between mt-4 mb-5'>
                 <SearchTransaction searchKey={searchKey} setSearchKey={setSearchKey} />
                 <Button variant="success" onClick={() => openModal('Add Transaction', <AddTransaction />)}  > 
                     Add Transaction  <i className="fa fa-plus-square  m-1   "></i>

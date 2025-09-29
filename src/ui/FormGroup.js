@@ -10,8 +10,8 @@ import React from 'react';
  */
 function FormGroup({ label, htmlFor, children }) {
     return (
-        <div className="mb-3">
-            <label htmlFor={htmlFor} className="form-label">{label}</label>
+        <div className="mb-4">
+            <label htmlFor={htmlFor} className="block text-sm font-medium text-text">{label}</label>
             {children}
         </div>
     );

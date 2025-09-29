@@ -14,7 +14,7 @@ import React from 'react';
 function Select({ options, value, onChange, defaultOptionLabel, id, name, ...rest }) {
     return (
         <select 
-            className="form-select" 
+            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-light-gray focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md custom-select transition duration-150 ease-in-out" 
             id={id} 
             name={name}
             value={value}

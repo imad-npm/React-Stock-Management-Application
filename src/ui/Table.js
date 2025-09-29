@@ -9,32 +9,38 @@ import React from 'react';
  */
 function Table({ data, columns }) {
     if (!data || data.length === 0) {
-        return <p>No data to display.</p>;
+        return <p className="text-center py-4 text-secondary">No data to display.</p>;
     }
 
     return (
-        <table className="table custom-table">
-            <thead>
-                <tr>
-                    {columns.map((column, index) => (
-                        <th key={column.accessor || index} scope="col">
-                            {column.header}
-                        </th>
-                    ))}
-                </tr>
-            </thead>
-            <tbody>
-                {data.map((row, rowIndex) => (
-                    <tr key={row.id || rowIndex}>
-                        {columns.map((column, colIndex) => (
-                            <td key={column.accessor || colIndex}>
-                                {column.Cell ? column.Cell(row) : row[column.accessor]}
-                            </td>
+        <div className="shadow-lg overflow-hidden border-b border-light-gray sm:rounded-lg">
+            <table className="min-w-full divide-y divide-light-gray">
+                <thead className="bg-background">
+                    <tr>
+                        {columns.map((column, index) => (
+                            <th
+                                key={column.accessor || index}
+                                scope="col"
+                                className="px-6 py-3 text-left text-xs font-medium text-secondary uppercase tracking-wider"
+                            >
+                                {column.header}
+                            </th>
                         ))}
                     </tr>
-                ))}
-            </tbody>
-        </table>
+                </thead>
+                <tbody className="bg-white divide-y divide-light-gray">
+                    {data.map((row, rowIndex) => (
+                        <tr key={row.id || rowIndex} className="hover:bg-gray-50 transition duration-150 ease-in-out">
+                            {columns.map((column, colIndex) => (
+                                <td key={column.accessor || colIndex} className="px-6 py-4 whitespace-nowrap text-sm text-text">
+                                    {column.Cell ? column.Cell(row) : row[column.accessor]}
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
     );
 }
 

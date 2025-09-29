@@ -6,7 +6,7 @@ import TopProductsChart from './products/components/TopProductsChart';
 function Stats() {
   
   return (
-    <div className='container mt-5 d-sm-flex  justify-content-between'>
+    <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 sm:flex sm:justify-between'>
     <TypesChart />
     <TopProductsChart/>
     

@@ -76,7 +76,7 @@ function Products() {
         { header: 'Category', accessor: 'category' },
         {
             header: 'Action', accessor: 'action', Cell: (row) => (
-                <div className='d-flex'>
+                <div className='flex space-x-2'>
                     <Button variant="primary" onClick={() => openModal('Product Details', <ProductDetails product={row} />)}>
                         <i className="fa fa-eye"></i>
                     </Button>
@@ -92,8 +92,8 @@ function Products() {
     ];
 
     return (
-        <div className='container mt-3'>
-            <div className=' d-flex flex-wrap justify-content-between  align-items-center mt-4 mb-5  '>
+        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-3'>
+            <div className='flex flex-wrap items-center justify-between mt-4 mb-5'>
                 <SearchProduct searchKey={searchKey} setSearchKey={setSearchKey} />
                 <Button variant="success" onClick={() => openModal('Add Product', <AddProduct />)}>
                     Add Product <i className="fa fa-plus-square  m-1   "></i>

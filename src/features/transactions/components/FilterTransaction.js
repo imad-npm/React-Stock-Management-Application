@@ -12,17 +12,17 @@ function FilterTransaction(props) {
     ];
 
     return (
-        <div className="row mt-4">
-            <div className="col-md-4">
-                <label htmlFor="fromDate" className="form-label">From Date</label>
+        <div className="flex flex-wrap -mx-3 mt-4">
+            <div className="w-full md:w-1/3 px-3 mb-4">
+                <label htmlFor="fromDate" className="block text-sm font-medium text-gray-700">From Date</label>
                 <Input type="date" value={fromDate} onChange={(e) => setFromDate(e.target.value)} id="fromDate" />
             </div>
-            <div className="col-md-4">
-                <label htmlFor="toDate" className="form-label">To Date</label>
+            <div className="w-full md:w-1/3 px-3 mb-4">
+                <label htmlFor="toDate" className="block text-sm font-medium text-gray-700">To Date</label>
                 <Input type="date" value={toDate} onChange={(e) => setToDate(e.target.value)} id="toDate" />
             </div>
-            <div className="col-md-4">
-                <label htmlFor="type" className="form-label">Type</label>
+            <div className="w-full md:w-1/3 px-3 mb-4">
+                <label htmlFor="type" className="block text-sm font-medium text-gray-700">Type</label>
                 <Select id='type' value={type} onChange={(e) => setType(e.target.value)} options={typeOptions} />
             </div>
         </div>
