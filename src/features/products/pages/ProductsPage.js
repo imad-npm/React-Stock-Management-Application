@@ -53,10 +53,10 @@ function ProductsPage() {
                 <img src={row.thumbnail} alt={row.title} width="50" />
             )
         },
-        { header: 'Name', accessor: 'title' },
+        { header: 'Name', accessor: 'title', truncate: true },
         { header: 'Stock', accessor: 'stock' },
         { header: 'Price', accessor: 'price' },
-        { header: 'Category', accessor: 'category' },
+        { header: 'Category', accessor: 'category', truncate: true },
         {
             header: 'Action', accessor: 'action', Cell: (row) => (
                 <div className='flex space-x-2'>

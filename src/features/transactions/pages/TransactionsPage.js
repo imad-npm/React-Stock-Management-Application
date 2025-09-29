@@ -49,7 +49,7 @@ export default function TransactionsPage() {
 
     const columns = [
         { header: '#', accessor: 'id' },
-        { header: 'Product', accessor: 'product' },
+        { header: 'Product', accessor: 'product', truncate: true },
         { header: 'Quantity', accessor: 'quantity' },
         { header: 'Type', accessor: 'type' },
         { header: 'Date', accessor: 'date' },
