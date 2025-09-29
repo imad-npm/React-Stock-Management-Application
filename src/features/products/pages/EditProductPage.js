@@ -22,7 +22,7 @@ function EditProductPage() {
     category: existingProduct.category || '',
     description: existingProduct.description || '',
   } : {
-    id: null, // Will be set if product is found
+    id: null,
     title: '',
     thumbnail: '',
     stock: 0,
@@ -33,7 +33,6 @@ function EditProductPage() {
 
   useEffect(() => {
     if (!existingProduct) {
-      // Handle case where product is not found, e.g., redirect to 404 or products list
       navigate('/products');
     }
   }, [existingProduct, navigate]);
@@ -61,17 +60,17 @@ function EditProductPage() {
   const handleSave = (e) => {
     e.preventDefault();
     updateProduct(formData);
-    navigate('/products'); // Navigate back to products page after saving
+    navigate('/products');
   };
 
   if (!existingProduct) {
-    return null; // Or a loading spinner, or a "Product not found" message
+    return null;
   }
 
   return (
     <div className="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8 bg-white shadow-md rounded-lg mt-6">
       <h2 className="text-2xl font-bold text-text mb-6">Edit Product: {formData.title}</h2>
-      <form onSubmit={handleSave}>
+      <form onSubmit={handleSave} className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <FormGroup label="Name" htmlFor="title">
           <Input
             type="text"
@@ -79,21 +78,6 @@ function EditProductPage() {
             value={formData.title}
             onChange={handleChange}
           />
-        </FormGroup>
-
-        <FormGroup label="Image" htmlFor="thumbnail">
-          <Input
-            type="file"
-            id="thumbnail"
-            onChange={handleImageUpload}
-          />
-          {formData.thumbnail && (
-            <img
-              src={formData.thumbnail}
-              alt="Preview"
-              className="mt-2 w-24 h-24 object-cover rounded-md"
-            />
-          )}
         </FormGroup>
 
         <FormGroup label="Stock" htmlFor="stock">
@@ -125,15 +109,32 @@ function EditProductPage() {
           />
         </FormGroup>
 
-        <FormGroup label="Description" htmlFor="description">
-          <Textarea // Replaced textarea with Textarea component
+        <FormGroup label="Image" htmlFor="thumbnail" className="md:col-span-2">
+          <Input
+            type="file"
+            id="thumbnail"
+            onChange={handleImageUpload}
+          />
+          {formData.thumbnail && (
+            <img
+              src={formData.thumbnail}
+              alt="Preview"
+              className="mt-2 w-32 h-32 object-cover rounded-md shadow-sm"
+            />
+          )}
+        </FormGroup>
+
+        <FormGroup label="Description" htmlFor="description" className="md:col-span-2">
+          <Textarea
             id="description"
             value={formData.description}
             onChange={handleChange}
           />
         </FormGroup>
 
-        <Button type="submit" variant="primary">Save Changes</Button>
+        <div className="md:col-span-2 flex justify-end">
+          <Button type="submit" variant="primary">Save Changes</Button>
+        </div>
       </form>
     </div>
   );

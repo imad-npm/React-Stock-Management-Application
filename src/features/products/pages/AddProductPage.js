@@ -55,7 +55,7 @@ function AddProductPage() {
   return (
     <div className="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8 bg-white shadow-md rounded-lg mt-6">
       <h2 className="text-2xl font-bold text-text mb-6">Add New Product</h2>
-      <form onSubmit={handleSave}>
+      <form onSubmit={handleSave} className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <FormGroup label="Name" htmlFor="name">
           <Input
             type="text"
@@ -98,7 +98,22 @@ function AddProductPage() {
           />
         </FormGroup>
 
-        <FormGroup label="Description" htmlFor="description">
+        <FormGroup label="Image" htmlFor="image" className="md:col-span-2">
+          <Input
+            type="file"
+            id="image"
+            onChange={handleImageUpload}
+          />
+          {form.imageUrl && (
+            <img
+              src={form.imageUrl}
+              alt="Preview"
+              className="mt-2 w-32 h-32 object-cover rounded-md shadow-sm"
+            />
+          )}
+        </FormGroup>
+
+        <FormGroup label="Description" htmlFor="description" className="md:col-span-2">
           <Textarea // Replaced textarea with Textarea component
             id="description"
             name="description"
@@ -107,15 +122,9 @@ function AddProductPage() {
           />
         </FormGroup>
 
-        <FormGroup label="Image" htmlFor="image">
-          <Input
-            type="file"
-            id="image"
-            onChange={handleImageUpload}
-          />
-        </FormGroup>
-
-        <Button type="submit" variant="primary">Save Product</Button>
+        <div className="md:col-span-2 flex justify-end">
+          <Button type="submit" variant="primary">Save Product</Button>
+        </div>
       </form>
     </div>
   );
