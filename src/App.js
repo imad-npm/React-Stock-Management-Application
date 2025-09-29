@@ -5,6 +5,8 @@ import Navbar from './ui/Navbar'
 import {  Routes, Route } from "react-router-dom";
 import Transactions from './features/transactions/components/Transactions'
 import Stats from './features/Stats'
+import AddProductPage from './pages/AddProductPage'; // Import new page
+import AddTransactionPage from './pages/AddTransactionPage'; // Import new page
 
 
 function App() {
@@ -20,7 +22,9 @@ function App() {
             element={<Products />}
           />
         ))}
+        <Route path='/products/add' element={<AddProductPage />} /> {/* New route */}
         <Route path='/transactions' element={<Transactions/>} />
+        <Route path='/transactions/add' element={<AddTransactionPage />} /> {/* New route */}
         <Route path='/stats' element={<Stats/>} />
       </Routes>
     </div>

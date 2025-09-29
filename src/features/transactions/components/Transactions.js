@@ -1,18 +1,18 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import useTransactionStore from '../transactionStore.js';
 import SearchTransaction from './SearchTransaction';
-import AddTransaction from './AddTransaction';
-import Modal from '../../../ui/Modal';
 import Pagination from '../../../ui/Pagination';
 import FilterTransaction from './FilterTransaction';
 import Button from '../../../ui/Button';
 import Table from '../../../ui/Table.js';
 import EditTransaction from './EditTransaction.js';
-import Dropdown from '../../../ui/Dropdown.js'; // Import Dropdown
-import { PencilSquareIcon, TrashIcon, PlusIcon, FunnelIcon } from '@heroicons/react/24/outline'; // Import FunnelIcon
+import Dropdown from '../../../ui/Dropdown.js';
+import { PencilSquareIcon, TrashIcon, PlusIcon, FunnelIcon } from '@heroicons/react/24/outline';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 export default function Transactions() {
     const { transactions, exportTransactions, deleteTransaction } = useTransactionStore();
+    const navigate = useNavigate(); // Initialize useNavigate
 
     // State for filters is lifted to this parent component
     const [searchKey, setSearchKey] = useState('');
@@ -35,21 +35,24 @@ export default function Transactions() {
         });
     }, [transactions, searchKey, fromDate, toDate, type]);
 
-    const [showModal, setShowModal] = useState(false);
-    const [modalComponent, setModalComponent] = useState();
-    const [modalTitle, setModalTitle] = useState('');
+    // Removed modal states and functions
+    // const [showModal, setShowModal] = useState(false);
+    // const [modalComponent, setModalComponent] = useState();
+    // const [modalTitle, setModalTitle] = useState('');
+
     const [currentPage, setCurrentPage] = useState(1);
 
-    const openModal = (title, component) => {
-        setShowModal(true);
-        setModalTitle(title);
-        setModalComponent(component);
-    };
+    // openModal and closeModal are no longer needed here
+    // const openModal = (title, component) => {
+    //     setShowModal(true);
+    //     setModalTitle(title);
+    //     setModalComponent(component);
+    // };
 
-    const closeModal = () => {
-        setShowModal(false);
-        setModalComponent(null);
-    };
+    // const closeModal = () => {
+    //     setShowModal(false);
+    //     setModalComponent(null);
+    // };
 
     const itemsPerPage = 10;
     const totalItems = filteredTransactions.length;
@@ -100,7 +103,7 @@ export default function Transactions() {
                         )}
                     </Dropdown>
                 </div>
-                <Button variant="success" onClick={() => openModal('Add Transaction', <AddTransaction />)}  >
+                <Button variant="success" onClick={() => navigate('/transactions/add')}  > {/* Changed to navigate */}
                     Add Transaction  <PlusIcon className="h-5 w-5 ml-1" />
                 </Button>
             </div>
@@ -114,9 +117,10 @@ export default function Transactions() {
 
             <Button variant="primary" onClick={() => exportTransactions()}>Export</Button>
 
-            {(showModal &&
+            {/* Removed Modal rendering */}
+            {/* {(showModal &&
                 <Modal onClose={closeModal} title={modalTitle} component={modalComponent} />
-            )}
+            )} */}
         </div>
     );
 }

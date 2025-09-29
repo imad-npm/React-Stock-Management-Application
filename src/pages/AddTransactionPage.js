@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import useTransactionStore from '../transactionStore.js';
-import useProductStore from '../../products/productStore.js';
-import Input from '../../../ui/Input';
-import Select from '../../../ui/Select';
-import Button from '../../../ui/Button';
-import FormGroup from '../../../ui/FormGroup';
-import Alert from '../../../ui/Alert';
+import useTransactionStore from '../features/transactions/transactionStore.js'; // Adjusted path
+import useProductStore from '../features/products/productStore.js'; // Adjusted path
+import Input from '../ui/Input'; // Adjusted path
+import Select from '../ui/Select'; // Adjusted path
+import Button from '../ui/Button'; // Adjusted path
+import FormGroup from '../ui/FormGroup'; // Adjusted path
+import Alert from '../ui/Alert'; // Adjusted path
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
-function AddTransaction() {
+function AddTransactionPage() {
   const { insertTransaction } = useTransactionStore();
   const { products } = useProductStore();
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const [product, setProduct] = useState('');
   const [quantity, setQuantity] = useState(1);
@@ -48,6 +50,7 @@ function AddTransaction() {
     };
 
     insertTransaction(newTransaction);
+    navigate('/transactions'); // Navigate back to transactions page after saving
 
     setProduct('');
     setQuantity(1);
@@ -58,7 +61,8 @@ function AddTransaction() {
   const typeOptions = [{ value: 'EXIT', label: 'EXIT' }, { value: 'ENTRY', label: 'ENTRY' }];
 
   return (
-    <div>
+    <div className="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8 bg-white shadow-md rounded-lg mt-6">
+      <h2 className="text-2xl font-bold text-text mb-6">Add New Transaction</h2>
       <form onSubmit={handleSave}>
         <FormGroup label="Product" htmlFor="product">
           <Input
@@ -96,7 +100,7 @@ function AddTransaction() {
           />
         </FormGroup>
 
-        <Button type="submit" variant="primary">Save</Button>
+        <Button type="submit" variant="primary">Save Transaction</Button>
       </form>
 
       <Alert message={alertMessage} variant="warning" onClose={() => setAlertMessage('')} />
@@ -104,4 +108,4 @@ function AddTransaction() {
   );
 }
 
-export default AddTransaction;
+export default AddTransactionPage;

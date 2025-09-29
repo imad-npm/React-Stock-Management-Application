@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import useProductStore from '../productStore.js';
-import Modal from '../../../ui/Modal.js';
 import SearchProduct from './SearchProduct.js';
-import AddProduct from './AddProduct.js';
 import Pagination from '../../../ui/Pagination.js';
 import FilterProduct from './FilterProduct.js';
 import Button from '../../../ui/Button';
@@ -11,9 +9,11 @@ import EditProduct from './EditProduct.js';
 import ProductDetails from './ProductDetails.js';
 import { EyeIcon, PencilSquareIcon, TrashIcon, PlusIcon, FunnelIcon } from '@heroicons/react/24/outline'; // Import FunnelIcon
 import Dropdown from '../../../ui/Dropdown.js'; // Import Dropdown
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 function Products() {
     const { products, deleteProduct } = useProductStore();
+    const navigate = useNavigate(); // Initialize useNavigate
 
     // State for filters is lifted to this parent component
     const [searchKey, setSearchKey] = useState('');
@@ -36,10 +36,12 @@ function Products() {
         });
     }, [products, searchKey, minStock, maxStock, category, minPrice, maxPrice]);
 
-    const [showModal, setShowModal] = useState(false);
-    const [modalComponent, setModalComponent] = useState();
-    const [selectedProduct, setSelectedProduct] = useState(null);
-    const [modalTitle, setModalTitle] = useState('');
+    // Removed modal states and functions
+    // const [showModal, setShowModal] = useState(false);
+    // const [modalComponent, setModalComponent] = useState();
+    // const [selectedProduct, setSelectedProduct] = useState(null);
+    // const [modalTitle, setModalTitle] = useState('');
+
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
@@ -53,17 +55,18 @@ function Products() {
     var lastItemIndex = currentPage * itemsPerPage;
     var firstItemIndex = lastItemIndex - itemsPerPage;
 
-    const openModal = (title, component) => {
-        setShowModal(true);
-        setModalTitle(title);
-        setModalComponent(component);
-    };
+    // openModal and closeModal are no longer needed here
+    // const openModal = (title, component) => {
+    //     setShowModal(true);
+    //     setModalTitle(title);
+    //     setModalComponent(component);
+    // };
 
-    const closeModal = () => {
-        setShowModal(false);
-        setModalComponent(null);
-        setSelectedProduct(null);
-    };
+    // const closeModal = () => {
+    //     setShowModal(false);
+    //     setModalComponent(null);
+    //     setSelectedProduct(null);
+    // };
 
     const columns = [
         { header: '#', accessor: 'id' },
@@ -118,7 +121,7 @@ function Products() {
                         )}
                     </Dropdown>
                 </div>
-                <Button variant="success" onClick={() => openModal('Add Product', <AddProduct />)}>
+                <Button variant="success" onClick={() => navigate('/products/add')}> {/* Changed to navigate */}
                     Add Product <PlusIcon className="h-5 w-5 ml-1" />
                 </Button>
             </div>
@@ -130,9 +133,10 @@ function Products() {
 
             <Pagination totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
 
-            {(showModal &&
+            {/* Removed Modal rendering */}
+            {/* {(showModal &&
                 <Modal onClose={closeModal} title={modalTitle} component={modalComponent} />
-            )}
+            )} */}
         </div>
     )
 }
