@@ -21,6 +21,9 @@ const useProductStore = create((set) => ({
   },
 
   insertProduct: (product) => set((state) => {
+
+    console.log(product,state.products.length);
+    
     const newProducts = [...state.products, product];
     localStorage.setItem('products', JSON.stringify(newProducts));
     return { products: newProducts };

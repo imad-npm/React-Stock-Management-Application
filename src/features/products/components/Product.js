@@ -8,7 +8,7 @@ function Product({ product, openModal, closeModal }) {
 
 
   return (
-    <tr>
+    <tr >
         <td>{product.id}</td>
         <td className='col-1 ' ><img className=' w-100 ' src={product.thumbnail}/></td>
 
