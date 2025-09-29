@@ -1,21 +1,13 @@
-/* eslint-disable no-undef */
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './App';
-import ProductsContextProvider from './context/ProductsContextProvider';
 import { BrowserRouter } from 'react-router-dom';
-import TransactionsContextProvider from './context/TransactionsContextProvider';
 
-ReactDOM.render(
+const container = document.querySelector('#root');
+const root = createRoot(container);
+
+root.render(
   <BrowserRouter>
-  
-<ProductsContextProvider>
-  <TransactionsContextProvider>
-  <App />
-  </TransactionsContextProvider>
-</ProductsContextProvider>
-
-</BrowserRouter>,
-
-  document.querySelector('#root')
+    <App />
+  </BrowserRouter>
 );
