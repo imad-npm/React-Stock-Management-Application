@@ -9,6 +9,8 @@ import Button from '../../../ui/Button';
 import Table from '../../../ui/Table.js';
 import EditProduct from './EditProduct.js';
 import ProductDetails from './ProductDetails.js';
+import { EyeIcon, PencilSquareIcon, TrashIcon, PlusIcon, FunnelIcon } from '@heroicons/react/24/outline'; // Import FunnelIcon
+import Dropdown from '../../../ui/Dropdown.js'; // Import Dropdown
 
 function Products() {
     const { products, deleteProduct } = useProductStore();
@@ -78,13 +80,13 @@ function Products() {
             header: 'Action', accessor: 'action', Cell: (row) => (
                 <div className='flex space-x-2'>
                     <Button variant="primary" onClick={() => openModal('Product Details', <ProductDetails product={row} />)}>
-                        <i className="fa fa-eye"></i>
+                        <EyeIcon className="h-5 w-5" />
                     </Button>
                     <Button variant="warning" onClick={() => openModal('Edit Product', <EditProduct product={row} closeModal={closeModal} />)}>
-                        <i className="fa fa-edit"></i>
+                        <PencilSquareIcon className="h-5 w-5" />
                     </Button>
                     <Button variant="danger" onClick={() => deleteProduct(row.id)}>
-                        <i className="fa fa-trash"></i>
+                        <TrashIcon className="h-5 w-5" />
                     </Button>
                 </div>
             )
@@ -93,19 +95,32 @@ function Products() {
 
     return (
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-3'>
-            <div className='flex flex-wrap items-center justify-between mt-4 mb-5'>
-                <SearchProduct searchKey={searchKey} setSearchKey={setSearchKey} />
+            <div className='flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4'>
+                <div className="flex w-[60%] gap-4 items-center"> {/* Group Search and Filter dropdown */}
+                    <SearchProduct searchKey={searchKey} setSearchKey={setSearchKey} />
+                    <Dropdown
+                        trigger={
+                            <Button variant="secondary">
+                                <FunnelIcon className="h-5 w-5 mr-2" /> Filter
+                            </Button>
+                        }
+                    >
+                        {React.cloneElement(
+                            <FilterProduct />,
+                            {
+                                products: products,
+                                minStock: minStock, setMinStock: setMinStock,
+                                maxStock: maxStock, setMaxStock: setMaxStock,
+                                category: category, setCategory: setCategory,
+                                minPrice: minPrice, setMinPrice: setMinPrice,
+                                maxPrice: maxPrice, setMaxPrice: setMaxPrice
+                            }
+                        )}
+                    </Dropdown>
+                </div>
                 <Button variant="success" onClick={() => openModal('Add Product', <AddProduct />)}>
-                    Add Product <i className="fa fa-plus-square  m-1   "></i>
+                    Add Product <PlusIcon className="h-5 w-5 ml-1" />
                 </Button>
-                <FilterProduct
-                    products={products}
-                    minStock={minStock} setMinStock={setMinStock}
-                    maxStock={maxStock} setMaxStock={setMaxStock}
-                    category={category} setCategory={setCategory}
-                    minPrice={minPrice} setMinPrice={setMinPrice}
-                    maxPrice={maxPrice} setMaxPrice={setMaxPrice}
-                />
             </div>
 
             <Table

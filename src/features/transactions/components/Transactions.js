@@ -8,6 +8,8 @@ import FilterTransaction from './FilterTransaction';
 import Button from '../../../ui/Button';
 import Table from '../../../ui/Table.js';
 import EditTransaction from './EditTransaction.js';
+import Dropdown from '../../../ui/Dropdown.js'; // Import Dropdown
+import { PencilSquareIcon, TrashIcon, PlusIcon, FunnelIcon } from '@heroicons/react/24/outline'; // Import FunnelIcon
 
 export default function Transactions() {
     const { transactions, exportTransactions, deleteTransaction } = useTransactionStore();
@@ -66,10 +68,10 @@ export default function Transactions() {
             header: 'Action', accessor: 'action', Cell: (row) => (
                 <div className='flex space-x-2'>
                     <Button variant="warning" onClick={() => openModal('Edit Transaction', <EditTransaction transaction={row} closeModal={closeModal} />)}>
-                        <i className="fa fa-edit"></i>
+                        <PencilSquareIcon className="h-5 w-5" />
                     </Button>
                     <Button variant="danger" onClick={() => deleteTransaction(row.id)}>
-                        <i className="fa fa-trash"></i>
+                        <TrashIcon className="h-5 w-5" />
                     </Button>
                 </div>
             )
@@ -78,19 +80,32 @@ export default function Transactions() {
 
     return (
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-3'>
-            <div className='flex flex-wrap items-center justify-between mt-4 mb-5'>
-                <SearchTransaction searchKey={searchKey} setSearchKey={setSearchKey} />
-                <Button variant="success" onClick={() => openModal('Add Transaction', <AddTransaction />)}  > 
-                    Add Transaction  <i className="fa fa-plus-square  m-1   "></i>
+            <div className='flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4'>
+                <div className="flex gap-4 items-center"> {/* Group Search and Filter dropdown */}
+                    <SearchTransaction searchKey={searchKey} setSearchKey={setSearchKey} />
+                    <Dropdown
+                        trigger={
+                            <Button variant="secondary">
+                                <FunnelIcon className="h-5 w-5 mr-2" /> Filter
+                            </Button>
+                        }
+                    >
+                        {React.cloneElement(
+                            <FilterTransaction />,
+                            {
+                                fromDate: fromDate, setFromDate: setFromDate,
+                                toDate: toDate, setToDate: setToDate,
+                                type: type, setType: setType
+                            }
+                        )}
+                    </Dropdown>
+                </div>
+                <Button variant="success" onClick={() => openModal('Add Transaction', <AddTransaction />)}  >
+                    Add Transaction  <PlusIcon className="h-5 w-5 ml-1" />
                 </Button>
-                <FilterTransaction 
-                    fromDate={fromDate} setFromDate={setFromDate}
-                    toDate={toDate} setToDate={setToDate}
-                    type={type} setType={setType}
-                />
             </div>
 
-            <Table 
+            <Table
                 data={filteredTransactions.slice(firstItemIndex, lastItemIndex)}
                 columns={columns}
             />

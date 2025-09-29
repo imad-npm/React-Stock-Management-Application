@@ -14,7 +14,7 @@ import React from 'react';
 function Select({ options, value, onChange, defaultOptionLabel, id, name, ...rest }) {
     return (
         <select 
-            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-light-gray focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md custom-select transition duration-150 ease-in-out" 
+            className="flex h-10 w-full rounded-md border border-light-gray bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 custom-select transition duration-150 ease-in-out" 
             id={id} 
             name={name}
             value={value}

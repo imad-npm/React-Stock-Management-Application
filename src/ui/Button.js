@@ -10,27 +10,27 @@ import React from 'react';
  * @param {'button' | 'submit' | 'reset'} [props.type='button'] - The button's type.
  */
 function Button({ variant = 'primary', children, onClick, type = 'button', ...rest }) {
-    const baseClassName = 'font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-offset-2';
+    const baseClassName = 'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2';
     let variantClassName = '';
 
     switch (variant) {
         case 'primary':
-            variantClassName = 'bg-primary hover:bg-indigo-700 text-white focus:ring-primary';
+            variantClassName = 'bg-primary text-white hover:bg-primary/90';
             break;
         case 'success':
-            variantClassName = 'bg-accent hover:bg-green-600 text-white focus:ring-accent';
+            variantClassName = 'bg-accent text-white hover:bg-accent/90';
             break;
         case 'danger':
-            variantClassName = 'bg-red-600 hover:bg-red-700 text-white focus:ring-red-500';
+            variantClassName = 'bg-red-500 text-white hover:bg-red-600';
             break;
         case 'warning':
-            variantClassName = 'bg-yellow-500 hover:bg-yellow-600 text-white focus:ring-yellow-500';
+            variantClassName = 'bg-yellow-500 text-white hover:bg-yellow-600';
             break;
         case 'secondary':
-            variantClassName = 'bg-secondary hover:bg-gray-600 text-white focus:ring-secondary';
+            variantClassName = 'bg-secondary text-white hover:bg-secondary/90';
             break;
         default:
-            variantClassName = 'bg-gray-500 hover:bg-gray-700 text-white focus:ring-gray-500';
+            variantClassName = 'bg-gray-500 text-white hover:bg-gray-600';
     }
 
     return (

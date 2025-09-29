@@ -3,7 +3,7 @@ import Input from '../../../ui/Input';
 
 function SearchProduct({ searchKey, setSearchKey }) {
     return (
-        <div className='w-full md:w-1/2'>
+        <div className='flex-grow'>
             <Input 
                 type="search" 
                 placeholder="Search by name..." 

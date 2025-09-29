@@ -14,7 +14,7 @@ function Pagination({totalPages,currentPage,setCurrentPage}) {
 
   return (
            
-<nav aria-label="Page navigation example" className="mt-4">
+<nav aria-label="Page navigation example" className="mt-4 shadow-sm">
   <ul className="flex justify-center space-x-1">
     <li className={`px-3 py-2 leading-tight text-secondary bg-white border border-light-gray rounded-l-lg hover:bg-light-gray hover:text-text transition duration-150 ease-in-out ${currentPage==1 ? 'opacity-50 cursor-not-allowed':'' }`} onClick={handlePrevious}>
       Previous

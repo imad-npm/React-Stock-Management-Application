@@ -30,7 +30,7 @@ function Table({ data, columns }) {
                 </thead>
                 <tbody className="bg-white divide-y divide-light-gray">
                     {data.map((row, rowIndex) => (
-                        <tr key={row.id || rowIndex} className="hover:bg-gray-50 transition duration-150 ease-in-out">
+                        <tr key={row.id || rowIndex} className="hover:bg-light-gray transition duration-150 ease-in-out">
                             {columns.map((column, colIndex) => (
                                 <td key={column.accessor || colIndex} className="px-6 py-4 whitespace-nowrap text-sm text-text">
                                     {column.Cell ? column.Cell(row) : row[column.accessor]}

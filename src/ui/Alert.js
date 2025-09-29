@@ -11,9 +11,9 @@ import React from 'react';
 function Alert({ message, variant = 'info', onClose }) {
     if (!message) return null;
 
-    let alertClasses = "p-4 rounded-md relative mt-3";
+    let alertClasses = "p-4 rounded-md relative mt-3 border";
     let textClasses = "";
-    let closeButtonClasses = "absolute top-0 bottom-0 right-0 px-4 py-3";
+    let closeButtonClasses = "absolute top-1/2 -translate-y-1/2 right-4 text-gray-500 hover:text-gray-700 transition-colors duration-200";
 
     switch (variant) {
         case 'info':
@@ -47,7 +47,9 @@ function Alert({ message, variant = 'info', onClose }) {
                     className={closeButtonClasses}
                     onClick={onClose}
                 >
-                    <svg className="fill-current h-6 w-6" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
                 </button>
             )}
         </div>
