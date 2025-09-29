@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import useTransactionStore from '../features/transactions/transactionStore.js'; // Adjusted path
-import useProductStore from '../features/products/productStore.js'; // Adjusted path
-import Input from '../ui/Input'; // Adjusted path
-import Select from '../ui/Select'; // Adjusted path
-import Button from '../ui/Button'; // Adjusted path
-import FormGroup from '../ui/FormGroup'; // Adjusted path
-import Alert from '../ui/Alert'; // Adjusted path
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import useTransactionStore from '../transactionStore.js'; // Correct path relative to src/features/transactions
+import useProductStore from '../../products/productStore.js'; // Correct path relative to src/features/transactions/pages
+import Input from '../../../ui/Input'; // Correct path relative to src/features/transactions/pages
+import Select from '../../../ui/Select'; // Correct path relative to src/features/transactions/pages
+import Button from '../../../ui/Button'; // Correct path relative to src/features/transactions/pages
+import FormGroup from '../../../ui/FormGroup'; // Correct path relative to src/features/transactions/pages
+import Alert from '../../../ui/Alert'; // Correct path relative to src/features/transactions/pages
+import { useNavigate } from 'react-router-dom';
 
 function AddTransactionPage() {
   const { insertTransaction } = useTransactionStore();
   const { products } = useProductStore();
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const [product, setProduct] = useState('');
   const [quantity, setQuantity] = useState(1);
@@ -50,7 +50,7 @@ function AddTransactionPage() {
     };
 
     insertTransaction(newTransaction);
-    navigate('/transactions'); // Navigate back to transactions page after saving
+    navigate('/transactions');
 
     setProduct('');
     setQuantity(1);
@@ -84,6 +84,7 @@ function AddTransactionPage() {
           <Input
             type="number"
             id="quantity"
+            name="quantity"
             min={1}
             value={quantity}
             onChange={(e) => setQuantity(Number(e.target.value))}

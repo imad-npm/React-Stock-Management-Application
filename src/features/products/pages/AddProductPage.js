@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import useProductStore from '../features/products/productStore.js'; // Adjusted path
-import Input from '../ui/Input'; // Adjusted path
-import Button from '../ui/Button'; // Adjusted path
-import FormGroup from '../ui/FormGroup'; // Adjusted path
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import useProductStore from '../productStore.js'; // Correct path relative to src/features/products
+import Input from '../../../ui/Input'; // Correct path relative to src/features/products/pages
+import Button from '../../../ui/Button'; // Correct path relative to src/features/products/pages
+import FormGroup from '../../../ui/FormGroup'; // Correct path relative to src/features/products/pages
+import { useNavigate } from 'react-router-dom';
 
 function AddProductPage() {
   const { insertProduct, products } = useProductStore();
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const [form, setForm] = useState({
     name: "",
@@ -48,7 +48,7 @@ function AddProductPage() {
     };
 
     insertProduct(newProduct);
-    navigate('/products'); // Navigate back to products page after saving
+    navigate('/products');
   };
 
   return (

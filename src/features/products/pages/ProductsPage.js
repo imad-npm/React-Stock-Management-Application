@@ -1,21 +1,18 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import useProductStore from '../productStore.js';
-import SearchProduct from './SearchProduct.js';
+import SearchProduct from '../components/SearchProduct.js';
 import Pagination from '../../../ui/Pagination.js';
-import FilterProduct from './FilterProduct.js';
+import FilterProduct from '../components/FilterProduct.js';
 import Button from '../../../ui/Button';
 import Table from '../../../ui/Table.js';
-import EditProduct from './EditProduct.js';
-import ProductDetails from './ProductDetails.js';
-import { EyeIcon, PencilSquareIcon, TrashIcon, PlusIcon, FunnelIcon } from '@heroicons/react/24/outline'; // Import FunnelIcon
-import Dropdown from '../../../ui/Dropdown.js'; // Import Dropdown
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { EyeIcon, PencilSquareIcon, TrashIcon, PlusIcon, FunnelIcon } from '@heroicons/react/24/outline';
+import Dropdown from '../../../ui/Dropdown.js';
+import { useNavigate } from 'react-router-dom';
 
-function Products() {
+function ProductsPage() {
     const { products, deleteProduct } = useProductStore();
-    const navigate = useNavigate(); // Initialize useNavigate
+    const navigate = useNavigate();
 
-    // State for filters is lifted to this parent component
     const [searchKey, setSearchKey] = useState('');
     const [minStock, setMinStock] = useState('');
     const [maxStock, setMaxStock] = useState('');
@@ -36,12 +33,6 @@ function Products() {
         });
     }, [products, searchKey, minStock, maxStock, category, minPrice, maxPrice]);
 
-    // Removed modal states and functions
-    // const [showModal, setShowModal] = useState(false);
-    // const [modalComponent, setModalComponent] = useState();
-    // const [selectedProduct, setSelectedProduct] = useState(null);
-    // const [modalTitle, setModalTitle] = useState('');
-
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
@@ -54,19 +45,6 @@ function Products() {
 
     var lastItemIndex = currentPage * itemsPerPage;
     var firstItemIndex = lastItemIndex - itemsPerPage;
-
-    // openModal and closeModal are no longer needed here
-    // const openModal = (title, component) => {
-    //     setShowModal(true);
-    //     setModalTitle(title);
-    //     setModalComponent(component);
-    // };
-
-    // const closeModal = () => {
-    //     setShowModal(false);
-    //     setModalComponent(null);
-    //     setSelectedProduct(null);
-    // };
 
     const columns = [
         { header: '#', accessor: 'id' },
@@ -82,10 +60,10 @@ function Products() {
         {
             header: 'Action', accessor: 'action', Cell: (row) => (
                 <div className='flex space-x-2'>
-                    <Button variant="primary" onClick={() => openModal('Product Details', <ProductDetails product={row} />)}>
+                    <Button variant="primary" onClick={() => navigate(`/products/${row.id}`)}> {/* Changed to navigate */}
                         <EyeIcon className="h-5 w-5" />
                     </Button>
-                    <Button variant="warning" onClick={() => openModal('Edit Product', <EditProduct product={row} closeModal={closeModal} />)}>
+                    <Button variant="warning" onClick={() => navigate(`/products/edit/${row.id}`)}> 
                         <PencilSquareIcon className="h-5 w-5" />
                     </Button>
                     <Button variant="danger" onClick={() => deleteProduct(row.id)}>
@@ -99,7 +77,7 @@ function Products() {
     return (
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-3'>
             <div className='flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4'>
-                <div className="flex w-[60%] gap-4 items-center"> {/* Group Search and Filter dropdown */}
+                <div className="flex flex-grow gap-4 items-center"> {/* Group Search and Filter dropdown */}
                     <SearchProduct searchKey={searchKey} setSearchKey={setSearchKey} />
                     <Dropdown
                         trigger={
@@ -133,12 +111,8 @@ function Products() {
 
             <Pagination totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
 
-            {/* Removed Modal rendering */}
-            {/* {(showModal &&
-                <Modal onClose={closeModal} title={modalTitle} component={modalComponent} />
-            )} */}
         </div>
     )
 }
 
-export default Products;
+export default ProductsPage;
