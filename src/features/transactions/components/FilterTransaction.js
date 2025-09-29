@@ -1,26 +1,29 @@
-
 import React from 'react';
+import Input from '../../../ui/Input';
+import Select from '../../../ui/Select';
 
 function FilterTransaction(props) {
     const { fromDate, setFromDate, toDate, setToDate, type, setType } = props;
+
+    const typeOptions = [
+        { value: 'ALL', label: 'ALL' },
+        { value: 'EXIT', label: 'EXIT' },
+        { value: 'ENTRY', label: 'ENTRY' }
+    ];
 
     return (
         <div className="row mt-4">
             <div className="col-md-4">
                 <label htmlFor="fromDate" className="form-label">From Date</label>
-                <input type="date" className="form-control" value={fromDate} onChange={(e) => setFromDate(e.target.value)} id="fromDate" />
+                <Input type="date" value={fromDate} onChange={(e) => setFromDate(e.target.value)} id="fromDate" />
             </div>
             <div className="col-md-4">
                 <label htmlFor="toDate" className="form-label">To Date</label>
-                <input type="date" className="form-control" value={toDate} onChange={(e) => setToDate(e.target.value)} id="toDate" />
+                <Input type="date" value={toDate} onChange={(e) => setToDate(e.target.value)} id="toDate" />
             </div>
             <div className="col-md-4">
                 <label htmlFor="type" className="form-label">Type</label>
-                <select id='type' value={type} onChange={(e) => setType(e.target.value)} className='form-select'>
-                    <option value='ALL'>ALL</option>
-                    <option value='EXIT'>EXIT</option>
-                    <option value="ENTRY">ENTRY</option>
-                </select>
+                <Select id='type' value={type} onChange={(e) => setType(e.target.value)} options={typeOptions} />
             </div>
         </div>
     );

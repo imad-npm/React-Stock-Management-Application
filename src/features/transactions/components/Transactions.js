@@ -6,6 +6,7 @@ import Modal from '../../../ui/Modal';
 import Pagination from '../../../ui/Pagination';
 import Transaction from './Transaction';
 import FilterTransaction from './FilterTransaction';
+import Button from '../../../ui/Button';
 
 export default function Transactions() {
     const { transactions, exportTransactions } = useTransactionStore();
@@ -58,9 +59,9 @@ export default function Transactions() {
         <div className='container mt-3'>
             <div className=' d-flex flex-wrap  justify-content-between  align-items-center mt-4 mb-5  '>
                 <SearchTransaction searchKey={searchKey} setSearchKey={setSearchKey} />
-                <button type="button" className="btn mt-1  btn-success  " onClick={() => openModal('Add Transaction', <AddTransaction />)}  > 
+                <Button variant="success" onClick={() => openModal('Add Transaction', <AddTransaction />)}  > 
                     Add Transaction  <i className="fa fa-plus-square  m-1   "></i>
-                </button>
+                </Button>
                 <FilterTransaction 
                     fromDate={fromDate} setFromDate={setFromDate}
                     toDate={toDate} setToDate={setToDate}
@@ -90,7 +91,7 @@ export default function Transactions() {
 
             <Pagination totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
 
-            <button className='btn btn-primary' onClick={() => exportTransactions()}>Export</button>
+            <Button variant="primary" onClick={() => exportTransactions()}>Export</Button>
 
             {(showModal &&
                 <Modal onClose={closeModal} title={modalTitle} component={modalComponent} />

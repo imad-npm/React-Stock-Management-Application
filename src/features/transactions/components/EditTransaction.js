@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import useTransactionStore from '../transactionStore.js';
 import useProductStore from '../../products/productStore.js';
+import Input from '../../../ui/Input';
+import Select from '../../../ui/Select';
+import Button from '../../../ui/Button';
+import FormGroup from '../../../ui/FormGroup';
 
 function EditTransaction({ transaction }) {
   const { updateTransaction } = useTransactionStore();
   const { products } = useProductStore();
 
-  // Un seul state pour tous les champs
   const [form, setForm] = useState({ ...transaction });
 
   function handleChange(e) {
@@ -19,13 +22,14 @@ function EditTransaction({ transaction }) {
     updateTransaction(form);
   }
 
+  const productOptions = products.map(p => ({ value: p.title, label: p.title }));
+  const typeOptions = [{ value: 'EXIT', label: 'EXIT' }, { value: 'ENTRY', label: 'ENTRY' }];
+
   return (
     <div>
       <form onSubmit={handleSave}>
-        <div className="mb-3">
-          <label htmlFor="product" className="form-label">Product</label>
-          <input
-            className="form-control"
+        <FormGroup label="Product" htmlFor="product">
+          <Input
             id="product"
             name="product"
             value={form.product}
@@ -33,46 +37,37 @@ function EditTransaction({ transaction }) {
             list="products"
           />
           <datalist id="products">
-            {products.map((option, index) => (
-              <option key={index} value={option.title}>
-                {option.title}
-              </option>
+            {products.map((option) => (
+              <option key={option.id} value={option.title} />
             ))}
           </datalist>
-        </div>
+        </FormGroup>
 
-        <div className="mb-3">
-          <label htmlFor="quantity" className="form-label">Quantity</label>
-          <input
+        <FormGroup label="Quantity" htmlFor="quantity">
+          <Input
             type="number"
-            className="form-control"
             id="quantity"
             name="quantity"
             min={1}
             value={form.quantity}
             onChange={handleChange}
           />
-        </div>
+        </FormGroup>
 
-        <div className="mb-3">
-          <label htmlFor="type" className="form-label">Type</label>
-          <select
-            className="form-select"
+        <FormGroup label="Type" htmlFor="type">
+          <Select
             id="type"
             name="type"
             value={form.type}
             onChange={handleChange}
-          >
-            <option value="EXIT">EXIT</option>
-            <option value="ENTRY">ENTRY</option>
-          </select>
-        </div>
+            options={typeOptions}
+          />
+        </FormGroup>
 
         <div className="col-md-4 mb-3">
           <label htmlFor="date" className="form-label">Date</label>
-          <input
+          <Input
             type="text"
-            className="form-control"
             id="date"
             name="date"
             value={form.date}
@@ -80,7 +75,7 @@ function EditTransaction({ transaction }) {
           />
         </div>
 
-        <button type="submit" className="btn btn-primary">Save</button>
+        <Button type="submit" variant="primary">Save</Button>
       </form>
     </div>
   );

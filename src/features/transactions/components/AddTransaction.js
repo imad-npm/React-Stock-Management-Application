@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
 import useTransactionStore from '../transactionStore.js';
 import useProductStore from '../../products/productStore.js';
+import Input from '../../../ui/Input';
+import Select from '../../../ui/Select';
+import Button from '../../../ui/Button';
+import FormGroup from '../../../ui/FormGroup';
+import Alert from '../../../ui/Alert';
 
 function AddTransaction() {
-  const { insertTransaction, transactions } = useTransactionStore();
+  const { insertTransaction } = useTransactionStore();
   const { products } = useProductStore();
 
   const [product, setProduct] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [type, setType] = useState('EXIT');
-  const [alert, setAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
   const [availableStock, setAvailableStock] = useState(0);
 
   function handleSave(e) {
@@ -18,25 +23,24 @@ function AddTransaction() {
     const selected = products.find((p) => p.title === product);
 
     if (!selected) {
-      setAlert(true);
+      setAlertMessage('Product not found.');
       setAvailableStock(0);
       return;
     }
 
-    // Vérif stock uniquement pour EXIT
     if (type === 'EXIT') {
       if (selected.stock <= 0 || quantity > selected.stock) {
-        setAlert(true);
+        setAlertMessage(`Not enough stock. Available = ${selected.stock}`);
         setAvailableStock(selected.stock);
         return;
       }
     }
 
-    setAlert(false);
+    setAlertMessage('');
 
     const now = new Date();
     const newTransaction = {
-      id: Date.now(), // id unique (timestamp)
+      id: Date.now(),
       product: selected.title,
       quantity: Number(quantity),
       type,
@@ -45,19 +49,19 @@ function AddTransaction() {
 
     insertTransaction(newTransaction);
 
-    // reset formulaire
     setProduct('');
     setQuantity(1);
     setType('EXIT');
   }
 
+  const productOptions = products.map(p => ({ value: p.title, label: p.title }));
+  const typeOptions = [{ value: 'EXIT', label: 'EXIT' }, { value: 'ENTRY', label: 'ENTRY' }];
+
   return (
     <div>
       <form onSubmit={handleSave}>
-        <div className="mb-3">
-          <label htmlFor="product" className="form-label">Product</label>
-          <input
-            className="form-control"
+        <FormGroup label="Product" htmlFor="product">
+          <Input
             id="product"
             type="text"
             list="products"
@@ -70,47 +74,32 @@ function AddTransaction() {
               <option key={option.id} value={option.title} />
             ))}
           </datalist>
-        </div>
+        </FormGroup>
 
-        <div className="mb-3">
-          <label htmlFor="quantity" className="form-label">Quantity</label>
-          <input
+        <FormGroup label="Quantity" htmlFor="quantity">
+          <Input
             type="number"
-            className="form-control"
             id="quantity"
             min={1}
             value={quantity}
             onChange={(e) => setQuantity(Number(e.target.value))}
             required
           />
-        </div>
+        </FormGroup>
 
-        <div className="mb-3">
-          <label htmlFor="type" className="form-label">Type</label>
-          <select
-            className="form-select"
+        <FormGroup label="Type" htmlFor="type">
+          <Select
             id="type"
             value={type}
             onChange={(e) => setType(e.target.value)}
-          >
-            <option value="EXIT">EXIT</option>
-            <option value="ENTRY">ENTRY</option>
-          </select>
-        </div>
+            options={typeOptions}
+          />
+        </FormGroup>
 
-        <button type="submit" className="btn btn-primary">Save</button>
+        <Button type="submit" variant="primary">Save</Button>
       </form>
 
-      {alert && (
-        <div className="alert alert-warning alert-dismissible fade show mt-3">
-          <strong>Warning!</strong> Not enough stock. Available = {availableStock}
-          <button
-            type="button"
-            onClick={() => setAlert(false)}
-            className="btn-close"
-          ></button>
-        </div>
-      )}
+      <Alert message={alertMessage} variant="warning" onClose={() => setAlertMessage('')} />
     </div>
   );
 }

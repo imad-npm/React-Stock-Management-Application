@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import useProductStore from '../productStore.js';
+import Input from '../../../ui/Input';
+import Button from '../../../ui/Button';
+import FormGroup from '../../../ui/FormGroup';
 
 function AddProduct() {
   const { insertProduct, products } = useProductStore();
 
-  // Un seul state pour tout le formulaire
   const [form, setForm] = useState({
     name: "",
     quantity: 0,
@@ -34,7 +36,7 @@ function AddProduct() {
     e.preventDefault();
 
     const newProduct = {
-      id: products[products.length-1].id + 1,
+      id: products.length > 0 ? products[products.length-1].id + 1 : 1,
       thumbnail: form.imageUrl,
       title: form.name,
       stock: Number(form.quantity),
@@ -49,58 +51,49 @@ function AddProduct() {
   return (
     <div>
       <form onSubmit={handleSave}>
-        <div className="mb-3">
-          <label htmlFor="name" className="form-label">Name</label>
-          <input
+        <FormGroup label="Name" htmlFor="name">
+          <Input
             type="text"
-            className="form-control"
             id="name"
             name="name"
             value={form.name}
             onChange={handleChange}
           />
-        </div>
+        </FormGroup>
 
-        <div className="mb-3">
-          <label htmlFor="quantity" className="form-label">Quantity</label>
-          <input
+        <FormGroup label="Quantity" htmlFor="quantity">
+          <Input
             type="number"
-            className="form-control"
             id="quantity"
             name="quantity"
             min={0}
             value={form.quantity}
             onChange={handleChange}
           />
-        </div>
+        </FormGroup>
 
-        <div className="mb-3">
-          <label htmlFor="price" className="form-label">Price</label>
-          <input
+        <FormGroup label="Price" htmlFor="price">
+          <Input
             type="number"
             step="0.01"
-            className="form-control"
             id="price"
             name="price"
             value={form.price}
             onChange={handleChange}
           />
-        </div>
+        </FormGroup>
 
-        <div className="mb-3">
-          <label htmlFor="category" className="form-label">Category</label>
-          <input
+        <FormGroup label="Category" htmlFor="category">
+          <Input
             type="text"
-            className="form-control"
             id="category"
             name="category"
             value={form.category}
             onChange={handleChange}
           />
-        </div>
+        </FormGroup>
 
-        <div className="mb-3">
-          <label htmlFor="description" className="form-label">Description</label>
+        <FormGroup label="Description" htmlFor="description">
           <textarea
             className="form-control"
             id="description"
@@ -108,19 +101,17 @@ function AddProduct() {
             value={form.description}
             onChange={handleChange}
           />
-        </div>
+        </FormGroup>
 
-        <div className="mb-3">
-          <label htmlFor="image" className="form-label">Image</label>
-          <input
-            className="form-control"
+        <FormGroup label="Image" htmlFor="image">
+          <Input
             type="file"
             id="image"
             onChange={handleImageUpload}
           />
-        </div>
+        </FormGroup>
 
-        <button type="submit" className="btn btn-primary">Save</button>
+        <Button type="submit" variant="primary">Save</Button>
       </form>
     </div>
   );

@@ -1,11 +1,10 @@
-
 import React from 'react';
+import Input from '../../../ui/Input';
 
 function SearchProduct({ searchKey, setSearchKey }) {
     return (
         <div className='col-6'>
-            <input 
-                className="form-control me-1" 
+            <Input 
                 type="search" 
                 placeholder="Search by name..." 
                 aria-label="Search" 

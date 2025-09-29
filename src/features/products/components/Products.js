@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useMemo } from 'react';
 import useProductStore from '../productStore.js';
 import Modal from '../../../ui/Modal.js';
@@ -7,6 +6,7 @@ import AddProduct from './AddProduct.js';
 import Pagination from '../../../ui/Pagination.js';
 import Product from './Product.js';
 import FilterProduct from './FilterProduct.js';
+import Button from '../../../ui/Button';
 
 function Products() {
     const { products } = useProductStore();
@@ -65,9 +65,9 @@ function Products() {
         <div className='container mt-3'>
             <div className=' d-flex flex-wrap justify-content-between  align-items-center mt-4 mb-5  '>
                 <SearchProduct searchKey={searchKey} setSearchKey={setSearchKey} />
-                <button type="button" className="btn  btn-success  " onClick={() => openModal('Add Product', <AddProduct />)}> 
+                <Button variant="success" onClick={() => openModal('Add Product', <AddProduct />)}> 
                     Add Product <i className="fa fa-plus-square  m-1   "></i>
-                </button>
+                </Button>
                 <FilterProduct 
                     products={products}
                     minStock={minStock} setMinStock={setMinStock}
