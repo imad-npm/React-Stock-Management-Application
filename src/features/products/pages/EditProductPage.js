@@ -4,6 +4,7 @@ import useProductStore from '../productStore.js';
 import Input from '../../../ui/Input';
 import Button from '../../../ui/Button';
 import FormGroup from '../../../ui/FormGroup';
+import Textarea from '../../../ui/Textarea'; // Import Textarea
 
 function EditProductPage() {
   const { id } = useParams();
@@ -125,8 +126,7 @@ function EditProductPage() {
         </FormGroup>
 
         <FormGroup label="Description" htmlFor="description">
-          <textarea
-            className="flex h-10 w-full rounded-md border border-light-gray bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition duration-150 ease-in-out"
+          <Textarea // Replaced textarea with Textarea component
             id="description"
             value={formData.description}
             onChange={handleChange}

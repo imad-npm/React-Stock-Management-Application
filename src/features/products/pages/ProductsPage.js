@@ -60,13 +60,13 @@ function ProductsPage() {
         {
             header: 'Action', accessor: 'action', Cell: (row) => (
                 <div className='flex space-x-2'>
-                    <Button variant="primary" onClick={() => navigate(`/products/${row.id}`)}> {/* Changed to navigate */}
+                    <Button size="sm" variant="primary" onClick={() => navigate(`/products/${row.id}`)}> 
                         <EyeIcon className="h-5 w-5" />
                     </Button>
-                    <Button variant="warning" onClick={() => navigate(`/products/edit/${row.id}`)}> 
+                    <Button size="sm" variant="warning" onClick={() => navigate(`/products/edit/${row.id}`)}> 
                         <PencilSquareIcon className="h-5 w-5" />
                     </Button>
-                    <Button variant="danger" onClick={() => deleteProduct(row.id)}>
+                    <Button size="sm" variant="danger" onClick={() => deleteProduct(row.id)}>
                         <TrashIcon className="h-5 w-5" />
                     </Button>
                 </div>

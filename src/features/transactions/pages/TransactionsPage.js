@@ -56,10 +56,10 @@ export default function TransactionsPage() {
         {
             header: 'Action', accessor: 'action', Cell: (row) => (
                 <div className='flex space-x-2'>
-                    <Button variant="warning" onClick={() => navigate(`/transactions/edit/${row.id}`)}> 
+                    <Button size="sm" variant="warning" onClick={() => navigate(`/transactions/edit/${row.id}`)}> 
                         <PencilSquareIcon className="h-5 w-5" />
                     </Button>
-                    <Button variant="danger" onClick={() => deleteTransaction(row.id)}>
+                    <Button size="sm" variant="danger" onClick={() => deleteTransaction(row.id)}>
                         <TrashIcon className="h-5 w-5" />
                     </Button>
                 </div>

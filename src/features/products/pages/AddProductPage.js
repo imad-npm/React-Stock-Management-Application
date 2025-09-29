@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import useProductStore from '../productStore.js'; // Correct path relative to src/features/products
-import Input from '../../../ui/Input'; // Correct path relative to src/features/products/pages
-import Button from '../../../ui/Button'; // Correct path relative to src/features/products/pages
-import FormGroup from '../../../ui/FormGroup'; // Correct path relative to src/features/products/pages
-import { useNavigate } from 'react-router-dom';
+import Input from '../../../ui/Input'; // Adjusted path
+import Button from '../../../ui/Button'; // Adjusted path
+import FormGroup from '../../../ui/FormGroup'; // Adjusted path
+import Textarea from '../../../ui/Textarea'; // Import Textarea
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 function AddProductPage() {
   const { insertProduct, products } = useProductStore();
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const [form, setForm] = useState({
     name: "",
@@ -48,7 +49,7 @@ function AddProductPage() {
     };
 
     insertProduct(newProduct);
-    navigate('/products');
+    navigate('/products'); // Navigate back to products page after saving
   };
 
   return (
@@ -98,8 +99,7 @@ function AddProductPage() {
         </FormGroup>
 
         <FormGroup label="Description" htmlFor="description">
-          <textarea
-            className="flex h-10 w-full rounded-md border border-light-gray bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition duration-150 ease-in-out"
+          <Textarea // Replaced textarea with Textarea component
             id="description"
             name="description"
             value={form.description}
