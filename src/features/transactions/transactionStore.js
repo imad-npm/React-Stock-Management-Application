@@ -1,11 +1,10 @@
-
 import { create } from 'zustand';
 import useProductStore from '../products/productStore';
 import generateTransactions from '../../lib/generateTransactions';
 import * as XLSX from 'xlsx';
 
 const useTransactionStore = create((set, get) => ({
-  transactions: generateTransactions(10),
+  transactions: generateTransactions(100),
 
   insertTransaction: (transaction) => {
     const { updateStock } = useProductStore.getState();
