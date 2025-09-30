@@ -17,7 +17,7 @@ import EditTransactionPage from './features/transactions/pages/EditTransactionPa
 function App() {
   return (
     
-    <div>
+    <div className='pb-8'>
       <Navbar/>
       <Routes>
         {["/", "/products"].map(path => (

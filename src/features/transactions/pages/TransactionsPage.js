@@ -89,9 +89,14 @@ export default function TransactionsPage() {
                         )}
                     </Dropdown>
                 </div>
-                <Button variant="success" onClick={() => navigate('/transactions/add')}  >
-                    Add Transaction  <PlusIcon className="h-5 w-5 ml-1" />
-                </Button>
+                <div className="flex gap-4">
+                    <Button variant="primary" onClick={() => exportTransactions()}>
+                        Export
+                    </Button>
+                    <Button variant="success" onClick={() => navigate('/transactions/add')}  >
+                        Add Transaction  <PlusIcon className="h-5 w-5 ml-1" />
+                    </Button>
+                </div>
             </div>
 
             <Table
@@ -100,8 +105,6 @@ export default function TransactionsPage() {
             />
 
             <Pagination totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
-
-            <Button variant="primary" onClick={() => exportTransactions()}>Export</Button>
 
           
         </div>
