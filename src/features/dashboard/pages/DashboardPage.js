@@ -24,7 +24,7 @@ function DashboardPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
       <div>
-        <h3 className="text-lg leading-6 font-medium text-gray-900">Dashboard</h3>
+        <h3 className="text-lg leading-6 font-medium text-gray-900">All-Time Stats</h3>
         <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((item) => (
             <div key={item.name} className="relative bg-white pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
@@ -38,7 +38,7 @@ function DashboardPage() {
           ))}
         </dl>
       </div>
-      <div className="mt-10 sm:flex sm:justify-between">
+      <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-2">
         <TypesChart />
         <TopProductsChart />
       </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import useTransactionStore from '../transactionStore.js';
 import 'chart.js/auto';
-import { Doughnut } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 
 function TypesChart() {
     const { transactions } = useTransactionStore();
@@ -16,19 +16,43 @@ function TypesChart() {
     }, { entries: 0, exits: 0 });
 
     const data = {
-        labels: ['Entries', "Exits"],
+        labels: ['Entries', 'Exits'],
         datasets: [{
-            data: [entries, exits]
+            label: 'Number of Transactions',
+            data: [entries, exits],
+            backgroundColor: [
+                'rgba(75, 192, 192, 0.6)',
+                'rgba(255, 99, 132, 0.6)',
+            ],
+            borderColor: [
+                'rgba(75, 192, 192, 1)',
+                'rgba(255, 99, 132, 1)',
+            ],
+            borderWidth: 1,
         }]
     };
 
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: false,
+            },
+            title: {
+                display: true,
+                text: 'Transaction Types',
+                font: {
+                    size: 18,
+                }
+            },
+        },
+    };
+
   return (
-    
-      <div className="w-48 mb-10">
-      <Doughnut data={data}/>
+    <div className="w-full max-w-md mx-auto p-4 bg-white shadow rounded-lg">
+      <Bar data={data} options={options} />
     </div>
-    
   )
 }
 
-export default TypesChart
+export default TypesChart;
