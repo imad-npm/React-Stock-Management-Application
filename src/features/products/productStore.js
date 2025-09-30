@@ -6,15 +6,9 @@ const useProductStore = create((set) => ({
 
   fetchProducts: async () => {
     try {
-      const storedProducts = localStorage.getItem('products');
-      if (storedProducts && storedProducts !== '[]') {
-        set({ products: JSON.parse(storedProducts) });
-      } else {
         const res = await fetch('https://dummyjson.com/products');
         const data = await res.json();
-        localStorage.setItem('products', JSON.stringify(data.products));
         set({ products: data.products });
-      }
     } catch (error) {
       console.error("Failed to fetch products:", error);
     }
@@ -25,13 +19,11 @@ const useProductStore = create((set) => ({
     console.log(product,state.products.length);
     
     const newProducts = [...state.products, product];
-    localStorage.setItem('products', JSON.stringify(newProducts));
     return { products: newProducts };
   }),
 
   deleteProduct: (id) => set((state) => {
     const newProducts = state.products.filter((p) => p.id !== id);
-    localStorage.setItem('products', JSON.stringify(newProducts));
     return { products: newProducts };
   }),
 
@@ -39,7 +31,6 @@ const useProductStore = create((set) => ({
     const newProducts = state.products.map(p => 
       p.id === updatedProduct.id ? updatedProduct : p
     );
-    localStorage.setItem('products', JSON.stringify(newProducts));
     return { products: newProducts };
   }),
 
@@ -50,7 +41,6 @@ const useProductStore = create((set) => ({
       }
       return p;
     });
-    localStorage.setItem('products', JSON.stringify(newProducts));
     return { products: newProducts };
   }),
 }));
