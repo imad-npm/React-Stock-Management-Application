@@ -6,7 +6,7 @@ import { Routes, Route } from "react-router-dom";
 // Import page components from their new locations
 import ProductsPage from './features/products/pages/ProductsPage';
 import TransactionsPage from './features/transactions/pages/TransactionsPage';
-import StatsPage from './features/stats/pages/StatsPage';
+import DashboardPage from './features/dashboard/pages/DashboardPage'; // Import new page
 import AddProductPage from './features/products/pages/AddProductPage';
 import AddTransactionPage from './features/transactions/pages/AddTransactionPage';
 import ProductDetailsPage from './features/products/pages/ProductDetailsPage';
@@ -33,7 +33,7 @@ function App() {
         <Route path='/transactions' element={<TransactionsPage/>} />
         <Route path='/transactions/add' element={<AddTransactionPage />} />
         <Route path='/transactions/edit/:id' element={<EditTransactionPage />} /> {/* New route for Edit Transaction */}
-        <Route path='/stats' element={<StatsPage/>} />
+        <Route path='/dashboard' element={<DashboardPage/>} />
       </Routes>
     </div>
   )

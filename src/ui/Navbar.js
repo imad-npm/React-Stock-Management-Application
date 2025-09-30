@@ -43,9 +43,9 @@ function Navbar() {
               className={({ isActive }) =>
                 `block mt-4 md:inline-block md:mt-0 text-gray-300 hover:text-white transition duration-300 ${isActive ? 'text-primary font-bold' : ''}`
               }
-              to='/stats'
+              to='/dashboard'
             >
-              Stats
+              Dashboard
             </NavLink>
           </div>
         </div>
